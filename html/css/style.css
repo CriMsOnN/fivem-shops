@@ -1,0 +1,127 @@
+body {
+    background: transparent !important;
+}
+
+.container {
+    color: black;
+    padding-top: 5%;
+    width: auto;
+    height: auto;
+}
+
+.container-usable {
+    position: absolute;
+    margin-left: 30%;
+}
+
+.container-usable {
+    width: 150px;
+    margin-top: 10%;
+    background-color: rgba(11, 15, 18, 0.96);
+}
+
+.amount input {
+    width: 93%;
+    border: 1px solid #000;
+    border-radius: 5px;
+    margin-left: 3%;
+}
+
+#number {
+    text-align: center;
+}
+
+.amount label {
+    color: white;
+    margin-left: 30%;
+}
+
+.buy button {
+    margin-top: 10%;
+    margin-bottom: 10%;
+    margin-left: 5%;
+    width: 90%;
+    height: 30px;
+    background-color: rgba(92, 49, 49, 1);
+    border: none !important;
+}
+
+.buy button:hover {
+    background-color: rgba(92, 49, 49, 0.7);
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+.container-box {
+    display: flex;
+    width: 400px;
+    height: 500px;
+    background-color: rgba(11, 15, 18, 0.96);
+}
+
+
+.container-items {
+    display: flex;
+    flex-wrap: wrap;
+    width: 95%;
+    height: 30%;
+    margin: 2%;
+    margin-left: 5%;
+}
+
+.items {
+    color: white;
+    width: 60px;
+    margin-left: 3%;
+    margin-bottom: 2%;
+    margin-top: 2%;
+    border: 1px solid #A1A1A1A1;
+    text-align: center;
+    background-color: RGBA(45, 15, 18, 0.4);
+}
+
+#item-price {
+    font-size: 12px;
+    margin-left: 60%;
+    color: green;
+}
+
+
+#item-name {
+    background-color: RGBA(76, 0, 18, 0.4);
+}
+
+#item-image img {
+    width: 32px;
+    height: 32px;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+
+.tooltip {
+    visibility: hidden;
+    position: absolute;
+    z-index: 1;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    font-size: 13px;
+}
+
+.items:hover .tooltip {
+    visibility: visible;
+}
