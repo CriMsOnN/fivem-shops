@@ -24,16 +24,37 @@ AddEventHandler("shop:server:getItems", function(shopId)
     end)
 end)
 
-removeStock = function(source, stock, shopid, item, amount)
+updateStock = function(source, shopid, item, newStock)
     MySQL.Async.execute("UPDATE shops SET stock = @stock WHERE shop_id = @shop_id AND item = @item", {
-        ["stock"] = stock,
-        ["shop_id"] = tonumber(shopid),
+        ["stock"] = newStock,
+        ["shop_id"] = shopid,
         ["item"] = item
     }, function(rows) 
         if rows then
-            TriggerClientEvent("shop:client:updateStock", source, item, stock)
+            TriggerClientEvent("shop:client:updateStock", source, item, newStock)
         end
     end)
+end
+
+removeStock = function(source, shopid, item, amount)
+    MySQL.Async.fetchAll("SELECT * FROM shops WHERE shop_id = @shop_id AND item = @item", {
+        ["shop_id"] = shopid,
+        ["item"] = item
+    }, function(result) 
+        if result[1] ~= nil then
+            local newStock = result[1].stock - amount
+            updateStock(source, shopid, item, newStock)
+        end
+    end)
+    -- MySQL.Async.execute("UPDATE shops SET stock = @stock WHERE shop_id = @shop_id AND item = @item", {
+    --     ["stock"] = stock,
+    --     ["shop_id"] = tonumber(shopid),
+    --     ["item"] = item
+    -- }, function(rows) 
+    --     if rows then
+    --         TriggerClientEvent("shop:client:updateStock", source, item, stock)
+    --     end
+    -- end)
     -- MySQL.Async.fetchAll("SELECT * FROM shops WHERE shop_id = @shop_id", {
     --     ["shop_id"] = shopid
     -- }, function(result) 
@@ -77,7 +98,7 @@ AddEventHandler("shop:server:buyItem", function(data)
         if xPlayer.canCarryItem(itemHash, amount) then
             xPlayer.addInventoryItem(itemHash, tonumber(amount))
             TriggerClientEvent("cm_notify:client:SendAlert", _source, {type="success", text="You successfully bought " .. data["name"]}, 5000)
-            removeStock(_source, stock, shopid, itemHash, tonumber(amount))
+            removeStock(_source, shopid, itemHash, tonumber(amount))
         else
             TriggerClientEvent("cm_notify:client:SendAlert", _source, {type="error", text="You cant carry more"}, 5000)
         end

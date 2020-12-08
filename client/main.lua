@@ -58,13 +58,12 @@ AddEventHandler("shop:client:getItems", function(shopId, itemsStock)
 end)
 
 RegisterNetEvent("shop:client:updateStock")
-AddEventHandler("shop:client:updateStock", function(item, stock)
-    print(item)
-    print(stock)
+AddEventHandler("shop:client:updateStock", function(item, newStock)
+    print(newStock)
     SendNUIMessage({
         action = "update",
         item = item,
-        stock = stock
+        stock = newStock
     })
 end)
 

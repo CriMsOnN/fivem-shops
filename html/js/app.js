@@ -47,12 +47,6 @@ setupItems = (items, id) => {
                 </div>
              </div>
         `)
-
-        items[item.name] = {
-            itemStock: item.stock,
-            itemPrice: item.price,
-            itemHash: item.hash,
-        }
     })
 
     $(".items").draggable({
@@ -78,9 +72,9 @@ setupItems = (items, id) => {
             var itemName = ui.draggable.attr("data-name");
             var shopID = ui.draggable.attr("data-id");
             var itemAmount = Number($("#number").val());
-            var itemStock = ui.draggable.attr("data-stock")
             var itemPrice = ui.draggable.attr("data-price");
             var itemHash = ui.draggable.attr("data-hash");
+            var itemStock = ui.draggable.attr("data-stock");
             if (itemAmount < 0) {
                 itemAmount = 1
             } else if (itemAmount == 0) {
@@ -91,18 +85,23 @@ setupItems = (items, id) => {
                     message: "You cant buy that many"
                 }))
             }
-            let newStock = Number(itemStock) - Number(itemAmount)
-            console.log("New Stock: ", newStock)
             $.post("http://shop/buyItem", JSON.stringify({
                 shopid: shopID,
                 name: itemName,
                 amount: itemAmount,
-                itemStock: newStock,
                 itemPrice: itemPrice,
                 itemHash: itemHash,
             }))
+            //ui.draggable.attr("data-stock", newStock)
+            
+            // $(['data-item'].each(() => {
+            //     if ($(this).data("item") == itemHash) {
+            //         $(this)
+            //     }
+            // }))
 
             $("#number").val(0)
+            setupItems()
         }
     })
 }
