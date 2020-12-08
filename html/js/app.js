@@ -1,5 +1,12 @@
 $(document).ready(() => {
     $(".container").hide();
+    $(".notification").hide();
+    window.addEventListener("keydown", (e) => {
+        if (e.keyCode == 27) {
+            $.post("http://shop/close", JSON.stringify({}))
+            $(".container").hide();
+        }
+    })
 })
 
 let items = {}
@@ -23,6 +30,19 @@ window.addEventListener("message", (event) => {
                 })
             }
         })
+        $(".notification").html("");
+        $(".notification").append(`
+            <div class="image">
+                <img src="./images/${data.item}.png">
+            </div>
+            <div class="notification-text">
+                ${data.item.toUpperCase()} successfully bought
+            </div>
+        `)
+        $(".notification").fadeIn(200);
+        setTimeout(() => {
+            $(".notification").fadeOut(200);
+        }, 2000)
     }
 })
 
@@ -92,14 +112,6 @@ setupItems = (items, id) => {
                 itemPrice: itemPrice,
                 itemHash: itemHash,
             }))
-            //ui.draggable.attr("data-stock", newStock)
-            
-            // $(['data-item'].each(() => {
-            //     if ($(this).data("item") == itemHash) {
-            //         $(this)
-            //     }
-            // }))
-
             $("#number").val(0)
             setupItems()
         }

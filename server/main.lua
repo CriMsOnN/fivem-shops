@@ -46,39 +46,6 @@ removeStock = function(source, shopid, item, amount)
             updateStock(source, shopid, item, newStock)
         end
     end)
-    -- MySQL.Async.execute("UPDATE shops SET stock = @stock WHERE shop_id = @shop_id AND item = @item", {
-    --     ["stock"] = stock,
-    --     ["shop_id"] = tonumber(shopid),
-    --     ["item"] = item
-    -- }, function(rows) 
-    --     if rows then
-    --         TriggerClientEvent("shop:client:updateStock", source, item, stock)
-    --     end
-    -- end)
-    -- MySQL.Async.fetchAll("SELECT * FROM shops WHERE shop_id = @shop_id", {
-    --     ["shop_id"] = shopid
-    -- }, function(result) 
-    --     if result[1] ~= nil then
-    --         local newStock = tonumber(result[1].stock) - tonumber(amount)
-    --         print(newStock)
-    --         MySQL.Async.execute("UPDATE shops SET stock = @stock WHERE shop_id = @shop_id AND item = @item", {
-    --             ["stock"] = newStock,
-    --             ["shop_id"] = tonumber(shopid),
-    --             ["item"] = item
-    --         }, function(rows) 
-    --             if rows then
-    --                 print("works")
-    --             end
-    --         end)
-    --         -- MySQL.Async.execute("UPDATE shops SET stock = @stock WHERE shop_id = @shop_id AND item = @item",{
-    --         --     ["stock"] = tonumber(newStock),
-    --         --     ["shop_id"] = tonumber(shopid),
-    --         --     ["item"] = item
-    --         -- }, function(result) 
-    --         --     TriggerClientEvent("shop:client:updateStock", source, item, newStock)
-    --         -- end)
-    --     end
-    -- end)
 end
 
 

@@ -1,28 +1,12 @@
 local open = false
 blip = 0
-
-RegisterCommand("open", function() 
-    open = not open
-    if open then
-        SendNUIMessage({
-            action = "show"
-        })
-        SetNuiFocus(true, true)
-    else
+RegisterNUICallback("close", function() 
         SendNUIMessage({
             action = "close"
         })
         SetNuiFocus(false, false)
-    end
-end)
 
-RegisterCommand("close", function() 
-        SendNUIMessage({
-            action = "close"
-        })
-        SetNuiFocus(false, false)
 end)
-
 Citizen.CreateThread(function() 
     while true do
         Wait(3)
@@ -59,7 +43,6 @@ end)
 
 RegisterNetEvent("shop:client:updateStock")
 AddEventHandler("shop:client:updateStock", function(item, newStock)
-    print(newStock)
     SendNUIMessage({
         action = "update",
         item = item,
